@@ -54,14 +54,14 @@ func (w *WebAuthn) GetLoginOptions(user User, session Session) (*protocol.Creden
 // StartLogin is a HTTP request handler which writes the options to be passed to navigator.credentials.get()
 // to the http.ResponseWriter. The user argument is optional and can be nil, in which case the allowCredentials
 // option will not be set and AuthenticatorStore.GetAuthenticators will not be called.
-func (w *WebAuthn) StartLogin(r *http.Request, rw http.ResponseWriter, user User, session Session) {
-	options, err := w.GetLoginOptions(user, session)
+func (w *WebAuthn) StartLogin(r *http.Request, rw http.ResponseWriter, user User, session Session) (options *protocol.CredentialRequestOptions){
+	options_, err := w.GetLoginOptions(user, session)
 	if err != nil {
 		w.writeError(r, rw, err)
-		return
+		return nil
 	}
 
-	w.write(r, rw, options)
+	return options_
 }
 
 // ParseAndFinishLogin should receive the response of navigator.credentials.get(). If
@@ -169,12 +169,10 @@ func (w *WebAuthn) ParseAndFinishLogin(assertionResponse protocol.AssertionRespo
 // user is non-nil, it will be checked that the authenticator is owned by that user. If the request is valid,
 // the authenticator will be returned and nothing will have been written to http.ResponseWriter. If authenticator is
 // nil, an error has been written to http.ResponseWriter and should be returned as-is.
-func (w *WebAuthn) FinishLogin(r *http.Request, rw http.ResponseWriter, user User, session Session) Authenticator {
+func (w *WebAuthn) FinishLogin(r *http.Request, rw http.ResponseWriter, user User, session Session, body []byte) Authenticator {
 	var assertionResponse protocol.AssertionResponse
-
-	d := json.NewDecoder(r.Body)
-	d.DisallowUnknownFields()
-	if err := d.Decode(&assertionResponse); err != nil {
+	err := json.Unmarshal(body, &assertionResponse)
+	if err != nil {
 		w.writeError(r, rw, protocol.ErrInvalidRequest.WithDebug(err.Error()))
 		return nil
 	}
