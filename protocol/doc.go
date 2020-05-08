@@ -3,4 +3,4 @@
 // IsValidAssertion and IsValidAttestation.
 //
 // The version of the specification that is implemented is https://www.w3.org/TR/2018/CR-webauthn-20180807/.
-package protocol // import "github.com/koesie10/webauthn/protocol"
+package protocol // import "github.com/keycloud/webauthn/protocol"
