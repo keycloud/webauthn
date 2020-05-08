@@ -4,8 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-
-	"github.com/koesie10/webauthn/protocol"
+	"webauthn/protocol"
 	"github.com/pkg/errors"
 )
 
@@ -23,6 +22,10 @@ func New(c *Config) (*WebAuthn, error) {
 	return &WebAuthn{
 		Config: c,
 	}, nil
+}
+
+func (w *WebAuthn) Write(r *http.Request, rw http.ResponseWriter, res interface{}) {
+	w.writeCode(r, rw, http.StatusOK, res)
 }
 
 func (w *WebAuthn) write(r *http.Request, rw http.ResponseWriter, res interface{}) {

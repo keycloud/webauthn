@@ -5,9 +5,8 @@ import (
 	"crypto/x509"
 	"encoding/json"
 	"encoding/pem"
+	"webauthn/protocol"
 	"net/http"
-
-	"github.com/koesie10/webauthn/protocol"
 )
 
 // GetRegistrationOptions will return the options that need to be passed to navigator.credentials.create(). This should
@@ -75,14 +74,14 @@ func (w *WebAuthn) GetRegistrationOptions(user User, session Session) (*protocol
 
 // StartRegistration is a HTTP request handler which writes the options to be passed to navigator.credentials.create()
 // to the http.ResponseWriter.
-func (w *WebAuthn) StartRegistration(r *http.Request, rw http.ResponseWriter, user User, session Session) {
-	options, err := w.GetRegistrationOptions(user, session)
+func (w *WebAuthn) StartRegistration(r *http.Request, rw http.ResponseWriter, user User, session Session)(options *protocol.CredentialCreationOptions) {
+	options_, err := w.GetRegistrationOptions(user, session)
 	if err != nil {
 		w.writeError(r, rw, err)
-		return
+		return nil
 	}
 
-	w.write(r, rw, options)
+	return options_
 }
 
 // ParseAndFinishRegistration should receive the response of navigator.credentials.create(). If
@@ -158,11 +157,10 @@ func (w *WebAuthn) ParseAndFinishRegistration(attestationResponse protocol.Attes
 // the request is valid, AuthenticatorStore.AddAuthenticator will be called and an empty response with HTTP status code
 // 201 (Created) will be written to the http.ResponseWriter. If authenticator is  nil, an error has been written to
 // http.ResponseWriter and should be returned as-is.
-func (w *WebAuthn) FinishRegistration(r *http.Request, rw http.ResponseWriter, user User, session Session) Authenticator {
+func (w *WebAuthn) FinishRegistration(r *http.Request, rw http.ResponseWriter, user User, session Session, body []byte) Authenticator {
 	var attestationResponse protocol.AttestationResponse
-	d := json.NewDecoder(r.Body)
-	d.DisallowUnknownFields()
-	if err := d.Decode(&attestationResponse); err != nil {
+	err := json.Unmarshal(body, &attestationResponse)
+	if err != nil {
 		w.writeError(r, rw, protocol.ErrInvalidRequest.WithDebug(err.Error()))
 		return nil
 	}
