@@ -1,4 +1,4 @@
-module github.com/koesie10/webauthn
+module github.com/keycloud/webauthn
 
 go 1.13
 
