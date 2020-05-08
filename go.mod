@@ -9,4 +9,4 @@ require (
 	gopkg.in/square/go-jose.v2 v2.4.1
 )
 
-replace github.com/koesie10/webauthn => github.com/keycloud/webauthn
+replace github.com/koesie10/webauthn => github.com/keycloud/webauthn v1.0.0
