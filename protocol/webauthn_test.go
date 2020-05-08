@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/koesie10/webauthn/protocol"
+	"github.com/keycloud/webauthn/protocol"
 )
 
 func TestIsValidAssertion(t *testing.T) {

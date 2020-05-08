@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/koesie10/webauthn/protocol"
+	"github.com/keycloud/webauthn/protocol"
 )
 
 // GetLoginOptions will return the options that need to be passed to navigator.credentials.get(). This should

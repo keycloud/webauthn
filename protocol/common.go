@@ -8,7 +8,7 @@ import (
 	"encoding/binary"
 	"fmt"
 
-	"github.com/koesie10/webauthn/cose"
+	"github.com/keycloud/webauthn/cose"
 )
 
 // The PublicKeyCredential interface inherits from Credential [CREDENTIAL-MANAGEMENT-1], and contains the attributes

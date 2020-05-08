@@ -10,7 +10,7 @@ import (
 
 	"gopkg.in/square/go-jose.v2"
 
-	"github.com/koesie10/webauthn/protocol"
+	"github.com/keycloud/webauthn/protocol"
 )
 
 // Now is used to overwrite the time at which the certificate is verified and is just used for tests.

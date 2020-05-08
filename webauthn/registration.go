@@ -5,7 +5,7 @@ import (
 	"crypto/x509"
 	"encoding/json"
 	"encoding/pem"
-	"webauthn/protocol"
+	"github.com/keycloud/webauthn/protocol"
 	"net/http"
 )
 

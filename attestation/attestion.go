@@ -2,7 +2,7 @@
 package attestation
 
 import (
-	_ "github.com/koesie10/webauthn/attestation/androidsafetynet"
-	_ "github.com/koesie10/webauthn/attestation/fido"
-	_ "github.com/koesie10/webauthn/attestation/packed"
+	_ "github.com/keycloud/webauthn/attestation/androidsafetynet"
+	_ "github.com/keycloud/webauthn/attestation/fido"
+	_ "github.com/keycloud/webauthn/attestation/packed"
 )

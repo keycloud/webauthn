@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"webauthn/protocol"
+	"github.com/keycloud/webauthn/protocol"
 	"github.com/pkg/errors"
 )
 

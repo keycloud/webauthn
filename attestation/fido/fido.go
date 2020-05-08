@@ -6,7 +6,7 @@ import (
 	"crypto/elliptic"
 	"crypto/x509"
 
-	"github.com/koesie10/webauthn/protocol"
+	"github.com/keycloud/webauthn/protocol"
 )
 
 func init() {

@@ -4,7 +4,7 @@ import (
 	"crypto/ecdsa"
 	"testing"
 
-	"github.com/koesie10/webauthn/cose"
+	"github.com/keycloud/webauthn/cose"
 )
 
 func TestParseCOSE(t *testing.T) {

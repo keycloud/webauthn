@@ -10,7 +10,7 @@ import (
 	"encoding/asn1"
 	"math/big"
 
-	"github.com/koesie10/webauthn/protocol"
+	"github.com/keycloud/webauthn/protocol"
 )
 
 func init() {

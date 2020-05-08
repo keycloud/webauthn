@@ -8,5 +8,3 @@ require (
 	golang.org/x/crypto v0.0.0-20200221231518-2aa609cf4a9d // indirect
 	gopkg.in/square/go-jose.v2 v2.4.1
 )
-
-replace github.com/koesie10/webauthn => github.com/keycloud/webauthn v1.0.0
